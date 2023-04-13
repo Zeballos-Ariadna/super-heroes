@@ -1,6 +1,8 @@
 package technical.test.superheroes.Service;
 
 import org.springframework.stereotype.Service;
+import technical.test.superheroes.Exceptions.ErrorMessages;
+import technical.test.superheroes.Exceptions.NotFoundException;
 import technical.test.superheroes.Model.Domain.SuperHeroeDTO;
 import technical.test.superheroes.Model.Entity.SuperHeroe;
 import technical.test.superheroes.Model.Mapper.SuperHeroesMapper;
@@ -23,5 +25,10 @@ public class SuperHeroesService {
         return superHeroesRepository.findAll().stream().map(superHeroesMapper::entityToDto).collect(Collectors.toList());
     }
 
+    public SuperHeroeDTO findById(int id) throws NotFoundException{
+        SuperHeroe superHeroe = superHeroesRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(ErrorMessages.REGISTER_NOT_FOUND));
 
+        return superHeroesMapper.entityToDto(superHeroe);
+    }
 }

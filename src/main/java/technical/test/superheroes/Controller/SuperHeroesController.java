@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import technical.test.superheroes.Exceptions.NotFoundException;
 import technical.test.superheroes.Model.Domain.SuperHeroeDTO;
 import technical.test.superheroes.Service.SuperHeroesService;
 
@@ -26,5 +27,8 @@ public class SuperHeroesController {
         return new ResponseEntity<>(superHeroesService.findAll(), HttpStatus.OK);
     }
 
-    
+    @GetMapping("/{id}")
+    public ResponseEntity<SuperHeroeDTO> findById(@PathVariable int id) throws NotFoundException {
+        return ResponseEntity.ok().body(superHeroesService.findById(id));
+    }
 }
