@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import technical.test.superheroes.Exceptions.NotFoundException;
 import technical.test.superheroes.Model.Domain.SuperHeroeDTO;
@@ -28,17 +29,16 @@ public class SuperHeroeServiceTest {
     @Mock
     private SuperHeroesRepository repository;
 
-    @InjectMocks
+    @Mock
     private SuperHeroesService service;
 
-    @Mock
+    @Spy
     private SuperHeroesMapper mapper;
 
     @BeforeEach
     public void setup() {
         service = new SuperHeroesService(repository, mapper);
     }
-
     @Test
     void findAll_shouldReturnSuperHeroeList(){
         List<SuperHeroe> superHeroeList = new ArrayList<>();
