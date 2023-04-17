@@ -10,7 +10,6 @@ import technical.test.superheroes.Model.Mapper.SuperHeroesMapper;
 import technical.test.superheroes.Model.Repository.SuperHeroesRepository;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
 

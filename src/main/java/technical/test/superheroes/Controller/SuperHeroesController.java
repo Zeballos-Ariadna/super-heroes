@@ -3,6 +3,7 @@ package technical.test.superheroes.Controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import technical.test.superheroes.Annotations.Count;
 import technical.test.superheroes.Exceptions.FailedVerificationException;
 import technical.test.superheroes.Exceptions.NotFoundException;
 import technical.test.superheroes.Model.Domain.SuperHeroeDTO;
@@ -21,6 +22,7 @@ public class SuperHeroesController {
     }
 
     @GetMapping
+    @Count
     public ResponseEntity<List<SuperHeroeDTO>> findAll(){
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
@@ -36,6 +38,7 @@ public class SuperHeroesController {
     }
 
     @PostMapping
+    @Count
     public ResponseEntity<SuperHeroeDTO> save(@RequestBody SuperHeroeDTO dto) throws FailedVerificationException, NotFoundException {
         return ResponseEntity.ok().body(service.save(dto));
     }
