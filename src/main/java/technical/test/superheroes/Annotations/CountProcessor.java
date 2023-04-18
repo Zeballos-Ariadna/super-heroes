@@ -1,5 +1,6 @@
 package technical.test.superheroes.Annotations;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Slf4j
 public class CountProcessor {
 
     @Around("@annotation(technical.test.superheroes.Annotations.Count)")
@@ -14,7 +16,7 @@ public class CountProcessor {
         long start = System.currentTimeMillis();
         Object run = proceedingJoinPoint.proceed();
         long excecutionTime = System.currentTimeMillis() - start;
-        System.out.println(proceedingJoinPoint.getSignature() + " was executed in " + excecutionTime + " ms.");
+        log.info(proceedingJoinPoint.getSignature() + " was executed in " + excecutionTime + " ms.");
         return run;
     }
 }
