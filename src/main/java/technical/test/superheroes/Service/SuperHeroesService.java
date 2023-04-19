@@ -1,5 +1,8 @@
 package technical.test.superheroes.Service;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import technical.test.superheroes.Exceptions.ErrorMessages;
 import technical.test.superheroes.Exceptions.FailedVerificationException;
@@ -23,6 +26,7 @@ public class SuperHeroesService {
         this.mapper = mapper;
     }
 
+    @Cacheable("super-heroe")
     public List<SuperHeroeDTO> findAll(){
         return repository.findAll().stream().map(mapper::entityToDto).collect(Collectors.toList());
     }
@@ -42,6 +46,7 @@ public class SuperHeroesService {
         return superHeroeList.stream().map(mapper::entityToDto).collect(Collectors.toList());
     }
 
+    @Caching(evict = { @CacheEvict(value = "super-heroe", allEntries = true)})
     public SuperHeroeDTO save(SuperHeroeDTO dto) throws FailedVerificationException, NotFoundException{
         if(Objects.isNull(dto)
                 || Objects.isNull(dto.getName())
@@ -63,6 +68,7 @@ public class SuperHeroesService {
         return mapper.entityToDto(superHeroe);
     }
 
+    @Caching(evict = { @CacheEvict(value = "super-heroe", allEntries = true)})
     public SuperHeroeDTO delete(int id) throws NotFoundException{
         SuperHeroe entity = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ErrorMessages.REGISTER_NOT_FOUND));
